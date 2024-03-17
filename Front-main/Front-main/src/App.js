@@ -6,9 +6,10 @@ import YouTubeThumbnail from './YouTubeThumbnail.js';
 import { Paper, List, Container } from "@material-ui/core";
 import { call } from "./service/ApiService";
 import { useEffect } from "react";
+import NavBar from './components/NavBar';
 
 const App = () => {
-  const [state, setState] = useState({ items: []});
+  const [state, setState] = useState({ items: [] });
 
   // componentDidMount 대신 userEffect 사용
   useEffect(() => {
@@ -36,26 +37,25 @@ const App = () => {
   };
 
 
-    var todoItems = state.items.length > 0 && (
-      <div className='wrapper'>
-        <NavBar />
+  var todoItems = state.items.length > 0 && (
+    <Paper style={{ margin: 16 }}>
+      <List>
+        {this.state.items ? state.items.map((item, idx) => (
+          <Todo
+            item={item}
+            key={item.id}
+            deleteItem={deleteItem}
+            update={update}
+          />
+        )) : null}
+      </List>
+    </Paper>
+  );
 
-      <Paper style={{ margin: 16 }}>
-        <List>
-          {this.state.items ? state.items.map((item, idx) => (
-            <Todo
-              item={item}
-              key={item.id}
-              deleteItem={deleteItem}
-              update={update}
-            />
-          )) : null}
-        </List>
-      </Paper>
-    );
-
-    // 3. props로 넘겨주기
-    return (
+  // 3. props로 넘겨주기
+  return (
+    <div className='wrapper'>
+      <NavBar />
       <div className="App">
         <Container maxWidth="md">
           <AddTodo add={add} />
@@ -64,8 +64,8 @@ const App = () => {
           <YouTubeThumbnail />
         </Container>
       </div>
-      </div>
-    );
-  }
+    </div>
+  );
+}
 
 export default App;
