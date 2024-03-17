@@ -1,73 +1,71 @@
-import React from 'react';
-import { Paper, List, Container, Grid } from '@mui/material';
-import Todo from './Todo';
-import AddTodo from './AddTodo';
-import ExerciseTracker from './components/ExerciseTracker'; // ExerciseTracker 컴포넌트를 import합니다.
-import { call } from './service/ApiService';
-import YouTubeThumbnail from './components/YouTubeThumbnail'; 
-import NavBar from './components/NavBar';
+import React, { useState } from "react";
+import Todo from "./Todo";
+import AddTodo from "./AddTodo.js";
+import ExerciseTracker from "./ExerciseTracker.js";
+import YouTubeThumbnail from './YouTubeThumbnail.js';
+import { Paper, List, Container } from "@material-ui/core";
+import { call } from "./service/ApiService";
+import { useEffect } from "react";
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      items: [],
-    };
-  }
+const App = () => {
+  const [state, setState] = useState({ items: []});
 
-  componentDidMount() {
+  // componentDidMount 대신 userEffect 사용
+  useEffect(() => {
     call("/todo", "GET", null).then((response) =>
-      this.setState({ items: response.data })
+      setState({ items: response.data })
     );
-  }
+  }, []);
 
-  add = (item) => {
+  const add = (item) => {
     call("/todo", "POST", item).then((response) =>
-      this.setState({ items: response.data })
+      setState({ items: response.data })
     );
   };
 
-  delete = (item) => {
+  const deleteItem = (item) => {
     call("/todo", "DELETE", item).then((response) =>
-      this.setState({ items: response.data })
+      setState({ items: response.data })
     );
   };
 
-  update = (item) => {
+  const update = (item) => {
     call("/todo", "PUT", item).then((response) =>
-      this.setState({ items: response.data })
+      setState({ items: response.data })
     );
   };
 
-  render() {
-    return (
+
+    var todoItems = state.items.length > 0 && (
       <div className='wrapper'>
         <NavBar />
 
-      <div className="App" style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'flex-start' }}  >
+      <Paper style={{ margin: 16 }}>
+        <List>
+          {this.state.items ? state.items.map((item, idx) => (
+            <Todo
+              item={item}
+              key={item.id}
+              deleteItem={deleteItem}
+              update={update}
+            />
+          )) : null}
+        </List>
+      </Paper>
+    );
+
+    // 3. props로 넘겨주기
+    return (
+      <div className="App">
         <Container maxWidth="md">
-          <Grid container spacing={3}>
-            <Grid item xs={6}>
-              <AddTodo add={this.add} />
-              <List>
-                {this.state.items ? this.state.items.map((item, idx) => (
-                  <Todo
-                    item={item}
-                    key={item.id}
-                    delete={this.delete}
-                    update={this.update}
-                  />
-                )) : null}
-              </List>
-            </Grid>
-            <Grid item xs={6}>
-            </Grid>
-          </Grid>
+          <AddTodo add={add} />
+          <div className="TodoList">{todoItems}</div>
+          <ExerciseTracker />
+          <YouTubeThumbnail />
         </Container>
       </div>
       </div>
     );
   }
-}
 
 export default App;
