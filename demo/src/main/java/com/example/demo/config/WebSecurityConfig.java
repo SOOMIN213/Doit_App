@@ -36,14 +36,28 @@ public class WebSecurityConfig {
             .httpBasic(httpBasic -> httpBasic.disable()) // HTTP Basic 인증 비활성화
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // 세션 관리 설정
 
-.authorizeHttpRequests((authorizeRequests) ->
+            .authorizeHttpRequests((authorizeRequests) ->
                 authorizeRequests
-                    .requestMatchers("/", "/auth/**","/login").permitAll()
-                    .anyRequest().authenticated()
+                	.requestMatchers(
+                			"/h2-console/**"
+                			).permitAll()  // Allow all accesses to H2 console
+                    .requestMatchers(
+                		"/", "/auth/**","/login"
+                    		).permitAll()
+                    .anyRequest().authenticated()            
             )
 
             .addFilterAfter(jwtAuthenticationFilter, CorsFilter.class);
+       
+        
 
         return http.build();
     }
 }
+
+//
+//"/swagger-resources/**",
+//"/swagger-ui.html",
+//"/swagger-ui/index.html",
+//"/v3/api-docs",
+//"/webjars/**",

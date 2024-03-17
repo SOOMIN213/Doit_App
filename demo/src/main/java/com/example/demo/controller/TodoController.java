@@ -1,13 +1,15 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.ResponseDTO;
+import com.example.demo.dto.ResponseListDTO;
 import com.example.demo.dto.TodoDTO;
 import com.example.demo.model.TodoEntity;
 import com.example.demo.service.TodoService;
+
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,19 +22,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
+
 @RestController
 @RequestMapping("todo")
 public class TodoController {
-
+	
 	@Autowired
 	private TodoService service;
 
 	@GetMapping("/test")
 	public ResponseEntity<?> testTodo() {
+		log.info("Test Todo");
+		
 		String str = service.testService(); // 테스트 서비스 사용
 		List<String> list = new ArrayList<>();
 		list.add(str);
-		ResponseDTO<String> response = ResponseDTO.<String>builder().data(list).build();
+		ResponseListDTO<String> response = ResponseListDTO.<String>builder().data(list).build();
 		return ResponseEntity.ok(response);
 	}
 
@@ -52,13 +58,13 @@ public class TodoController {
 
 			List<TodoDTO> dtos = entities.stream().map(TodoDTO::new).collect(Collectors.toList());
 
-			ResponseDTO<TodoDTO> response = ResponseDTO.<TodoDTO>builder().data(dtos).build();
+			ResponseListDTO<TodoDTO> response = ResponseListDTO.<TodoDTO>builder().data(dtos).build();
 
 			return ResponseEntity.ok(response);
 		} catch (Exception e) {
 
 			String error = e.getMessage();
-			ResponseDTO<TodoDTO> response = ResponseDTO.<TodoDTO>builder().error(error).build();
+			ResponseListDTO<TodoDTO> response = ResponseListDTO.<TodoDTO>builder().error(error).build();
 			return ResponseEntity.badRequest().body(response);
 		}
 	}
@@ -71,7 +77,7 @@ public class TodoController {
 
 		List<TodoDTO> dtos = entities.stream().map(TodoDTO::new).collect(Collectors.toList());
 
-		ResponseDTO<TodoDTO> response = ResponseDTO.<TodoDTO>builder().data(dtos).build();
+		ResponseListDTO<TodoDTO> response = ResponseListDTO.<TodoDTO>builder().data(dtos).build();
 
 		return ResponseEntity.ok(response);
 	}
@@ -88,7 +94,7 @@ public class TodoController {
 
 		List<TodoDTO> dtos = entities.stream().map(TodoDTO::new).collect(Collectors.toList());
 
-		ResponseDTO<TodoDTO> response = ResponseDTO.<TodoDTO>builder().data(dtos).build();
+		ResponseListDTO<TodoDTO> response = ResponseListDTO.<TodoDTO>builder().data(dtos).build();
 
 	return ResponseEntity.ok(response);
 	}
@@ -107,12 +113,12 @@ public class TodoController {
 
 			List<TodoDTO> dtos = entities.stream().map(TodoDTO::new).collect(Collectors.toList());
 
-			ResponseDTO<TodoDTO> response = ResponseDTO.<TodoDTO>builder().data(dtos).build();
+			ResponseListDTO<TodoDTO> response = ResponseListDTO.<TodoDTO>builder().data(dtos).build();
 
 			return ResponseEntity.ok(response);
 		} catch (Exception e) {
 			String error = e.getMessage();
-			ResponseDTO<TodoDTO> response = ResponseDTO.<TodoDTO>builder().error(error).build();
+			ResponseListDTO<TodoDTO> response = ResponseListDTO.<TodoDTO>builder().error(error).build();
 			return ResponseEntity.badRequest().body(response);
 		}
 	}

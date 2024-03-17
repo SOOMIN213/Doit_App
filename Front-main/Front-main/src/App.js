@@ -5,6 +5,7 @@ import AddTodo from './AddTodo';
 import ExerciseTracker from './components/ExerciseTracker'; // ExerciseTracker 컴포넌트를 import합니다.
 import { call } from './service/ApiService';
 import YouTubeThumbnail from './components/YouTubeThumbnail'; 
+import NavBar from './components/NavBar';
 
 class App extends React.Component {
   constructor(props) {
@@ -40,26 +41,30 @@ class App extends React.Component {
 
   render() {
     return (
+      <div className='wrapper'>
+        <NavBar />
+
       <div className="App" style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'flex-start' }}  >
         <Container maxWidth="md">
           <Grid container spacing={3}>
             <Grid item xs={6}>
               <AddTodo add={this.add} />
               <List>
-                {this.state.items.map((item, idx) => (
+                {this.state.items ? this.state.items.map((item, idx) => (
                   <Todo
                     item={item}
                     key={item.id}
                     delete={this.delete}
                     update={this.update}
                   />
-                ))}
+                )) : null}
               </List>
             </Grid>
             <Grid item xs={6}>
             </Grid>
           </Grid>
         </Container>
+      </div>
       </div>
     );
   }

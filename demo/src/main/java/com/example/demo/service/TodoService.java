@@ -5,19 +5,20 @@ import org.springframework.stereotype.Service;
 import com.example.demo.model.TodoEntity;
 import com.example.demo.persistence.TodoRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Optional;
 
-
+@Slf4j
 @Service
 public class TodoService {
 
 	@Autowired
 	private TodoRepository repository;
-	private static final Logger log = LoggerFactory.getLogger(TodoService.class); //추가 
 
 	public String testService(){
 		//TodoEntity 생성
@@ -48,7 +49,8 @@ public class TodoService {
 	
 	
 	public List<TodoEntity> retrieve(final String userId){
-		return repository.findByUserId(userId);	}
+		return repository.findByUserId(userId);	
+	}
 	
 	
 	public List<TodoEntity> update (final TodoEntity entity){

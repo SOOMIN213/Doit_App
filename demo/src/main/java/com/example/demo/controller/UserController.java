@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.ResponseDTO;
+import com.example.demo.dto.ResponseListDTO;
 import com.example.demo.dto.UserDTO;
 import com.example.demo.model.UserEntity;
 import com.example.demo.security.TokenProvider;
@@ -50,7 +50,7 @@ public class UserController {
 			return ResponseEntity.ok(responseUserDTO);
 		} catch (Exception e) {
 			// 예외가 나는 경우 bad 리스폰스 리턴.
-			ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
+			ResponseListDTO responseDTO = ResponseListDTO.builder().error(e.getMessage()).build();
 			return ResponseEntity
 							.badRequest()
 							.body(responseDTO);
@@ -74,7 +74,7 @@ public class UserController {
 							.build();
 			return ResponseEntity.ok().body(responseUserDTO);
 		} else {
-			ResponseDTO responseDTO = ResponseDTO.builder()
+			ResponseListDTO responseDTO = ResponseListDTO.builder()
 							.error("Login failed.")
 							.build();
 			return ResponseEntity

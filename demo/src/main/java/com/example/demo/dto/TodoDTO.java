@@ -16,6 +16,10 @@ public class TodoDTO {
 	private String id;
 	private String title;
 	private boolean done;
+	private String date;
+	private String created;
+	private String updated;
+
 	
 	public TodoDTO(final TodoEntity entity) {
 		this.id = entity.getId();

@@ -2,7 +2,7 @@ let backendHost;
 
 const hostname = window && window.location && window.location.hostname;
 
-if(hostname === "localhost"){
+if(hostname === "localhost") {
     backendHost="http://localhost:8080";
 }
 

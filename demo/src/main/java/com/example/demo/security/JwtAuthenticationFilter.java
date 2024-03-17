@@ -30,7 +30,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         try {
             // 요청에서 토큰 추출 및 로깅
             String token = parseBearerToken(request);
-            log.info("Received token from request: {}", token);
+            // log.info("Received token from request: {}", token);
 
             if (token != null && !token.equalsIgnoreCase("null")) {
                 // 토큰 검증 및 로깅
@@ -49,7 +49,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 SecurityContextHolder.setContext(securityContext);
             }
         } catch (Exception ex) {
-            log.error("Could not set user authentication in security context", ex);
+            // log.error("Could not set user authentication in security context", ex);
+            log.error("Could not set user authentication in security context");
         }
 
         filterChain.doFilter(request, response);

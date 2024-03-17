@@ -6,6 +6,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 
+import "./global.css";
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
