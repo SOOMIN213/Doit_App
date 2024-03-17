@@ -51,6 +51,10 @@ public class TodoService {
 	public List<TodoEntity> retrieve(final String userId){
 		return repository.findByUserId(userId);	
 	}
+
+	public List<TodoEntity> retrieveByDate(final String userId, final String date){
+		return repository.findByUserIdAndDate(userId, date);
+	}
 	
 	
 	public List<TodoEntity> update (final TodoEntity entity){

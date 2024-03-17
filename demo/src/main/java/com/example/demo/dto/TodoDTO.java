@@ -25,6 +25,7 @@ public class TodoDTO {
 		this.id = entity.getId();
 		this.title = entity.getTitle();
 		this.done = entity.isDone();
+		this.date = entity.getDate();
 	}
 	
 	public static TodoEntity toEntity (final TodoDTO dto) {
@@ -32,6 +33,7 @@ public class TodoDTO {
 				.id(dto.getId())
 				.title(dto.getTitle())
 				.done(dto.isDone())
+				.date(dto.getDate())
 				.build();
 	}
 }

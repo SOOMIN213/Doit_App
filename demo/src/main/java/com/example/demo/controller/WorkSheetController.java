@@ -156,7 +156,8 @@ public class WorkSheetController {
 
             service.delete(entity);
 
-            return new ResponseEntity<>(HttpStatus.OK);
+            ResponseObjDTO<WorkSheetDTO> response = ResponseObjDTO.<WorkSheetDTO>builder().build();
+            return new ResponseEntity<ResponseObjDTO<WorkSheetDTO>>(response, HttpStatus.OK);
         } catch (Exception e) {
             log.warn(e.getMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

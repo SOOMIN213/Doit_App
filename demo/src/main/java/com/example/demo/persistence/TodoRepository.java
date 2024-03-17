@@ -10,4 +10,6 @@ public interface TodoRepository extends JpaRepository<TodoEntity, String>{
 	
 	List<TodoEntity> findByUserId(String userId);//생성
 
+	List<TodoEntity> findByUserIdAndDate(String userId, String date);//생성
+
 }

@@ -81,6 +81,9 @@ public class WorkSheetService {
         original.ifPresent(worksheet -> {
             worksheet.setTitle(entity.getTitle());
             worksheet.setDate(entity.getDate());
+            worksheet.setContent(entity.getContent());
+            worksheet.setTimeSpent(entity.getTimeSpent());
+            worksheet.setStatus(entity.getStatus());
             worksheet.setUpdated(currentDateTime);
             repository.save(worksheet);
         });

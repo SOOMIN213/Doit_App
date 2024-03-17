@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -123,4 +124,23 @@ public class TodoController {
 		}
 	}
 
+    @GetMapping("/by-date")
+	public ResponseEntity<?> getByDate(
+			@AuthenticationPrincipal String userId,
+            @RequestParam String date) {
+		try {
+
+			List<TodoEntity> entities = service.retrieveByDate(userId, date);
+
+			List<TodoDTO> dtos = entities.stream().map(TodoDTO::new).collect(Collectors.toList());
+
+			ResponseListDTO<TodoDTO> response = ResponseListDTO.<TodoDTO>builder().data(dtos).build();
+
+			return ResponseEntity.ok(response);
+		} catch (Exception e) {
+			String error = e.getMessage();
+			ResponseListDTO<TodoDTO> response = ResponseListDTO.<TodoDTO>builder().error(error).build();
+			return ResponseEntity.badRequest().body(response);
+		}
+	}
 }

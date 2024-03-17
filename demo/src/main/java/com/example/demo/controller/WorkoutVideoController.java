@@ -124,7 +124,9 @@ public class WorkoutVideoController {
 
             service.delete(entity);
 
-            return new ResponseEntity<>(HttpStatus.OK);
+            // make empty json response
+            ResponseObjDTO<WorkoutVideoDTO> response = ResponseObjDTO.<WorkoutVideoDTO>builder().build();
+            return new ResponseEntity<ResponseObjDTO<WorkoutVideoDTO>>(response, HttpStatus.OK);
         } catch (Exception e) {
             log.warn(e.getMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

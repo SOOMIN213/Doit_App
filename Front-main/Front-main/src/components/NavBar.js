@@ -1,7 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { signout } from '../service/ApiService';
 
 function NavBar({ isLoggedIn, onLogin, onLogout }) {
     // const isLoggedIn = false;
+    const navigate = useNavigate();
 
     return (
         <nav style={{
@@ -25,10 +28,13 @@ function NavBar({ isLoggedIn, onLogin, onLogout }) {
                 {isLoggedIn ? (
                     <button onClick={() => {
                         console.log('Logout')
+                        // navigate('/login')
+                        signout();
                     }}>Logout</button>
                 ) : (
                     <button onClick={() => {
                         console.log('Login')
+                        navigate('/login')
                     }}>Login</button>
                 )}
             </div>
