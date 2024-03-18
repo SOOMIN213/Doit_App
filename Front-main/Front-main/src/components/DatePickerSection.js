@@ -19,7 +19,7 @@ function DatePickerSection({ date, setDate }) {
                     <DatePicker
                         value={dayjs(date)}
                         onChange={(newDate) => {
-                            console.log(newDate)
+                            // console.log(newDate)
                             // setDate(newDate)
                             setDate(newDate.format('YYYY-MM-DD'))
                         }}

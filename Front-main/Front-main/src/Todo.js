@@ -39,7 +39,7 @@ function Todo({ todoItem, deleteItem, updateItem }) {
     const thisItem = { ...item };
     thisItem.done = !thisItem.done;
     setItem(thisItem);
-    updateItem(item);
+    updateItem(thisItem);
   };
 
   return (

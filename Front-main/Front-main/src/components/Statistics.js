@@ -62,7 +62,7 @@ function Statistics({ }) {
                 <DatePicker
                     value={dayjs(startDate)}
                     onChange={(newDate) => {
-                        console.log(newDate)
+                        // console.log(newDate)
                         // setDate(newDate)
                         setStartDate(newDate.format('YYYY-MM-DD'))
                     }}
@@ -71,7 +71,7 @@ function Statistics({ }) {
                 <DatePicker
                     value={dayjs(endDate)}
                     onChange={(newDate) => {
-                        console.log(newDate)
+                        // console.log(newDate)
                         // setDate(newDate)
                         setEndDate(newDate.format('YYYY-MM-DD'))
                     }}
