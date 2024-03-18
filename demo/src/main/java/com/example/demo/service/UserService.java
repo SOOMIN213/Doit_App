@@ -2,10 +2,13 @@ package com.example.demo.service;
 
 import com.example.demo.model.UserEntity;
 import com.example.demo.persistence.UserRepository;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -35,5 +38,35 @@ public class UserService {
 			return originalUser;
 		}
 		return null;
+	}
+
+	public UserEntity getByEmail(final String email) {
+		return userRepository.findByEmail(email);
+	}
+
+	public UserEntity getById(final String id) {
+		return userRepository.findById(id).orElse(null);
+	}
+
+	public UserEntity update(final UserEntity userEntity) {
+		if(userEntity == null || userEntity.getEmail() == null ) {
+			throw new RuntimeException("Invalid arguments");
+		}
+		final String email = userEntity.getEmail();
+		if(!userRepository.existsByEmail(email)) {
+			log.warn("Email does not exist {}", email);
+			throw new RuntimeException("Email does not exist");
+		}
+
+		final Optional<UserEntity> originalUser = userRepository.findById(userEntity.getId());
+
+		originalUser.ifPresent(entity -> {
+			entity.setUsername(userEntity.getUsername());
+			entity.setHeight(userEntity.getHeight());
+			entity.setWeight(userEntity.getWeight());
+			userRepository.save(entity);
+		});
+
+		return userRepository.findById(userEntity.getId()).orElse(null);
 	}
 }

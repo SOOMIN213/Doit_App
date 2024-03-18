@@ -11,5 +11,6 @@ public interface WorkSheetRepository extends JpaRepository<WorkSheetEntity, Long
     List<WorkSheetEntity> findByUserId(String userId);
 
     WorkSheetEntity findByUserIdAndDate(String userId, String date);
+    List<WorkSheetEntity> findManyByUserIdAndDate(String userId, String date);
 
 }

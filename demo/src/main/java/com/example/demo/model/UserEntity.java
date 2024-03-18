@@ -34,4 +34,13 @@ public class UserEntity {
 
 	@Column(nullable = false)
 	private String password; 
+
+	@Column(nullable = true)
+	private String role;
+
+	@Column(nullable = true)
+	private String height;
+
+	@Column(nullable = true)
+	private String weight;
 }

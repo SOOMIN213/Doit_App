@@ -54,3 +54,12 @@ CREATE TABLE workoutvideo (
     created VARCHAR(255),
     PRIMARY KEY (id)
 );
+
+ALTER TABLE user_entity
+ADD COLUMN role VARCHAR(255);
+
+ALTER TABLE user_entity
+ADD COLUMN height VARCHAR(255);
+
+ALTER TABLE user_entity
+ADD COLUMN weight VARCHAR(255);
